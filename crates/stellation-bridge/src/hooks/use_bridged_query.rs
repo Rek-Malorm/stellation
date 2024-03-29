@@ -143,6 +143,7 @@ where
 {
     let handle = use_prepared_query::<BridgedQueryInner<Q, L>>(input)?;
     let state = use_memo(
+        handle.state().clone(),
         |state| match state {
             QueryState::Completed { result } => BridgedQueryState::Completed {
                 result: result
@@ -157,7 +158,6 @@ where
                     .and_then(|m| m.inner.clone()),
             },
         },
-        handle.state().clone(),
     );
 
     Ok(UseBridgedQueryHandle {

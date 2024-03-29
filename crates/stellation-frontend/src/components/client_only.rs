@@ -10,11 +10,11 @@ pub fn ClientOnly(props: &ChildrenProps) -> Html {
 
     // Effects are only run on the client side.
     {
-        use_effect_with_deps(
+        use_effect_with(
+            should_render.setter(),
             |should_render_setter| {
                 should_render_setter.set(true);
             },
-            should_render.setter(),
         );
     }
 

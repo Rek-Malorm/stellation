@@ -20,16 +20,16 @@ thread_local = "1.1.7"
 lol_html = "1.1.1"
 serde_urlencoded = "0.7.1"
 anymap2 = "0.13.0"
-http = "0.2.9"
+http = "1.1.0"
 
 # Stellation Components
 stellation-bridge = { version = "0.3.0", path = "../stellation-bridge" }
 stellation-core = { version = "0.3.0", path = "../stellation-core" }
 
 # Yew / Component Related
-yew = { version = "0.20", features = ["ssr"] }
-bounce = { version = "0.8", features = ["helmet", "ssr"] }
-yew-router = "0.17"
+yew = { version = "0.21.0", features = ["ssr"] }
+bounce = { version = "0.9.0", features = ["helmet", "ssr"] }
+yew-router = "0.18.0"
 
 [package.metadata.docs.rs]
 all-features = true

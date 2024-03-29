@@ -22,6 +22,7 @@ use yew::prelude::*;
 #[function_component]
 pub fn BackendManagerProvider(props: &ChildrenProps) -> Html {
     let (reader, manager) = use_memo(
+        (),
         |_| {
             let (writer, reader) = render_static();
 
@@ -32,7 +33,6 @@ pub fn BackendManagerProvider(props: &ChildrenProps) -> Html {
 
             (Rc::new(RefCell::new(Some(reader))), style_mgr)
         },
-        (),
     )
     .as_ref()
     .to_owned();

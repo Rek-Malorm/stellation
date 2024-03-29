@@ -67,6 +67,7 @@ where
     } = props.clone();
 
     let get_init_states = use_callback(
+        bridge,
         move |_, bridge| {
             let mut states = AnyMap::new();
             states.insert(head_contents.clone());
@@ -76,7 +77,6 @@ where
 
             states
         },
-        bridge,
     );
 
     let history: AnyHistory = MemoryHistory::new().into();

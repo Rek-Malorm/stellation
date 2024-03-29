@@ -12,7 +12,8 @@ pub fn ServerTime() -> HtmlResult {
     {
         let server_time = server_time.clone();
 
-        use_effect_with_deps(
+        use_effect_with(
+            (),
             move |_| {
                 spawn_local(async move {
                     loop {
@@ -21,7 +22,6 @@ pub fn ServerTime() -> HtmlResult {
                     }
                 });
             },
-            (),
         );
     }
 

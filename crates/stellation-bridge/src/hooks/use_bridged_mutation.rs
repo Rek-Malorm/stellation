@@ -188,6 +188,7 @@ where
 {
     let handle = use_mutation::<BridgedMutationInner<T, L>>();
     let state = use_memo(
+        handle.state().clone(),
         |state| match state {
             MutationState::Idle => BridgedMutationState::Idle,
             MutationState::Loading => BridgedMutationState::Loading,
@@ -204,7 +205,7 @@ where
                     .and_then(|m| m.inner.clone()),
             },
         },
-        handle.state().clone(),
+
     );
 
     UseBridgedMutationHandle {

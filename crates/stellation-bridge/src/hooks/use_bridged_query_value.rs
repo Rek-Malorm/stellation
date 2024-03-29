@@ -231,6 +231,7 @@ where
 {
     let handle = use_query_value::<BridgedQueryInner<Q, L>>(input);
     let state = use_memo(
+        handle.state().clone(),
         |state| match state {
             QueryValueState::Loading => BridgedQueryValueState::Loading,
             QueryValueState::Completed { result } => BridgedQueryValueState::Completed {
@@ -246,7 +247,6 @@ where
                     .and_then(|m| m.inner.clone()),
             },
         },
-        handle.state().clone(),
     );
 
     UseBridgedQueryValueHandle {

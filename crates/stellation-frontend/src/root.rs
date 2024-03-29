@@ -48,6 +48,7 @@ where
     } = props.clone();
 
     let get_init_states = use_callback(
+        bridge_state,
         move |_, bridge_state| {
             let mut states = AnyMap::new();
 
@@ -57,7 +58,6 @@ where
 
             states
         },
-        bridge_state,
     );
 
     html! {

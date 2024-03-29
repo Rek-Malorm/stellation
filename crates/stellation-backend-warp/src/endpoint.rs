@@ -6,7 +6,6 @@ use std::ops::Deref;
 use bytes::Bytes;
 use futures::future::LocalBoxFuture;
 use futures::{FutureExt, SinkExt, StreamExt};
-use http::status::StatusCode;
 use stellation_backend::utils::ThreadLocalLazy;
 use stellation_backend::{ServerAppProps, ServerRenderer};
 use stellation_bridge::links::{Link, PhantomLink};
@@ -16,6 +15,7 @@ use warp::body::bytes;
 use warp::reply::Response;
 use warp::ws::{Message, Ws};
 use warp::{header, log, reply, Filter, Rejection, Reply};
+use warp::http::StatusCode;
 use yew::platform::{LocalHandle, Runtime};
 use yew::prelude::*;
 

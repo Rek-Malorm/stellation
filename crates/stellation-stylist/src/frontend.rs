@@ -15,8 +15,8 @@ use yew::prelude::*;
 #[function_component]
 pub fn FrontendManagerProvider(props: &ChildrenProps) -> Html {
     let manager = use_memo(
-        |_| StyleManager::new().expect("failed to create style manager."),
         (),
+        |_| StyleManager::new().expect("failed to create style manager."),
     )
     .as_ref()
     .to_owned();

@@ -21,11 +21,12 @@ pub(crate) fn warp_request() -> impl Clone
         .and(warp::header::headers_cloned())
         .then(
             move |path: FullPath, raw_queries: String, headers| async move {
+                let http_headers = convert_to_http_header_map(headers);
                 WarpRequest {
                     path: path.into(),
                     raw_queries: raw_queries.into(),
                     context: ().into(),
-                    headers,
+                    headers: http_headers, // Use the converted headers here
                 }
             },
         )
@@ -69,4 +70,14 @@ pub(crate) fn reject() -> impl Clone
     Future = impl Future<Output = Result<(Response,), Rejection>>,
 > {
     warp::any().and_then(|| async move { Err::<Response, Rejection>(not_found()) })
+}
+
+fn convert_to_http_header_map(warp_headers: warp::http::HeaderMap) -> http::HeaderMap {
+    let mut http_headers = http::HeaderMap::new();
+    for (name, value) in warp_headers.iter() {
+        if let Ok(header_name) = http::header::HeaderName::from_bytes(name.as_str().as_bytes()) {
+            http_headers.insert(header_name, http::header::HeaderValue::from_bytes(value.clone().as_bytes()).unwrap());
+        }
+    }
+    http_headers
 }

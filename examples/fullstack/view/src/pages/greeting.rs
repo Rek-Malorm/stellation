@@ -18,17 +18,18 @@ pub fn Greeting() -> Html {
 
     let name = use_state_eq(|| "".to_string());
     let oninput = use_callback(
+        name.setter(),
         |input: InputEvent, set_value| {
             let el = input.target_unchecked_into::<HtmlInputElement>();
             set_value.set(el.value());
         },
-        name.setter(),
     );
 
     let onclick = {
         let input_ref = input_ref.clone();
 
         use_callback(
+            name.clone(),
             move |_input, name| {
                 if !input_ref
                     .cast::<HtmlInputElement>()
@@ -44,7 +45,6 @@ pub fn Greeting() -> Html {
                     let _ = handle.run(name.to_string()).await;
                 });
             },
-            name.clone(),
         )
     };
 
